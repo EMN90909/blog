@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Auth • Argent</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+
+<body class="auth-body">
+  <div class="auth-card">
+    <h1>Welcome back</h1>
+    <p class="muted">Sign in or create an account</p>
+
+    <form id="authForm">
+      <input type="email" id="email" placeholder="you@domain.com" required>
+      <input type="password" id="password" placeholder="password" required>
+      <button class="primary" type="submit">Continue</button>
+    </form>
+
+    <button id="signup" class="ghost">Create account →</button>
+    <button id="reset" class="ghost">Forgot password?</button>
+
+    <p id="message" class="muted"></p>
+  </div>
+
+  <script type="module">
+    import { supabase } from "./supabase.js";
+
+    const form = document.getElementById("authForm");
+    const msg = document.getElementById("message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = email.value;
+      const password = password.value;
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) msg.textContent = error.message;
+      else window.location.href = "index.html";
+    });
+
+    document.getElementById("signup").onclick = async () => {
+      const emailVal = email.value;
+      const passVal = password.value;
+
+      const { error } = await supabase.auth.signUp({ email: emailVal, password: passVal });
+      msg.textContent = error ? error.message : "Check your email to confirm!";
+    };
+
+    document.getElementById("reset").onclick = async () => {
+      const { error } = await supabase.auth.resetPasswordForEmail(email.value);
+      msg.textContent = error ? error.message : "Password reset email sent!";
+    };
+  </script>
+</body>
+</html>
