@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portfolio</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: linear-gradient(120deg, #f6d365, #fda085);
+    color: #333;
+  }
+
+  header {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #ff6f61;
+  }
+
+  nav {
+    margin-top: 10px;
+  }
+
+  nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+  section {
+    padding: 50px 20px;
+    text-align: center;
+  }
+
+  .project {
+    display: inline-block;
+    width: 250px;
+    margin: 20px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .project img {
+    width: 100%;
+    display: block;
+  }
+
+  .project h3 {
+    margin: 10px 0;
+    color: #ff6f61;
+  }
+
+  .contact {
+    background: #ff6f61;
+    color: white;
+  }
+
+  .contact a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Manu's Portfolio</h1>
+  <nav>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section id="projects">
+  <h2>My Projects</h2>
+  <div class="project">
+    <img src="https://via.placeholder.com/250x150" alt="Project 1">
+    <h3>Project 1</h3>
+  </div>
+  <div class="project">
+    <img src="https://via.placeholder.com/250x150" alt="Project 2">
+    <h3>Project 2</h3>
+  </div>
+  <div class="project">
+    <img src="https://via.placeholder.com/250x150" alt="Project 3">
+    <h3>Project 3</h3>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About Me</h2>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet accumsan arcu.</p>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact Me</h2>
+  <p>Email me at <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+</section>
+
+</body>
+</html>
