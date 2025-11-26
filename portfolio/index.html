@@ -1,114 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Portfolio</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: linear-gradient(120deg, #f6d365, #fda085);
-    color: #333;
-  }
-
-  header {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-
-  header h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    color: #ff6f61;
-  }
-
-  nav {
-    margin-top: 10px;
-  }
-
-  nav a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-  }
-
-  section {
-    padding: 50px 20px;
-    text-align: center;
-  }
-
-  .project {
-    display: inline-block;
-    width: 250px;
-    margin: 20px;
-    background: rgba(255,255,255,0.7);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-
-  .project img {
-    width: 100%;
-    display: block;
-  }
-
-  .project h3 {
-    margin: 10px 0;
-    color: #ff6f61;
-  }
-
-  .contact {
-    background: #ff6f61;
-    color: white;
-  }
-
-  .contact a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Portfolio - Fast & Modern</title>
+  <!-- Load Tailwind CSS from CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Setting Inter as the default font */
+    body { font-family: 'Inter', sans-serif; }
+    /* Ensuring the hero image covers the space */
+    .hero-bg {
+        background: url('https://source.unsplash.com/1600x900/?abstract,code') center/cover no-repeat;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'primary': '#1d4ed8', /* Tailwind blue-700 for a clean accent */
+                    'accent': '#f59e0b',  /* Amber for hover/secondary */
+                },
+            }
+        }
+    }
+  </script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800">
 
-<header>
-  <h1>Manu's Portfolio</h1>
-  <nav>
-    <a href="#projects">Projects</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+  <!-- Hero Section (Full height, Navigation integrated at the top) -->
+  <div id="home" class="hero-bg relative h-screen flex flex-col justify-center items-center text-white">
 
-<section id="projects">
-  <h2>My Projects</h2>
-  <div class="project">
-    <img src="https://via.placeholder.com/250x150" alt="Project 1">
-    <h3>Project 1</h3>
+    <!-- Navigation/Logo positioned absolutely over the image -->
+    <div class="absolute top-0 w-full p-6 z-30">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Logo/Site Title -->
+            <a href="#" class="text-3xl font-bold text-white tracking-tight hover:text-accent transition">Your Name</a>
+            <!-- Navigation Links -->
+            <div class="flex space-x-6">
+                <a href="#projects" class="text-lg font-medium text-white hover:text-accent transition">Projects</a>
+                <a href="#about" class="text-lg font-medium text-white hover:text-accent transition">About</a>
+                <a href="#contact" class="text-lg font-medium text-white hover:text-accent transition">Contact</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Overlay for better text readability -->
+    <div class="absolute inset-0 bg-black/50 z-10"></div>
+
+    <!-- Main Hero Content -->
+    <div class="z-20 text-center px-4">
+      <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">Your Name</h1>
+      <p class="text-xl md:text-2xl max-w-3xl font-light mb-8">Crafting stuff. Coding things. Making magic (or near‑magic). Welcome to my little corner of the internet.</p>
+      <a href="#projects" class="inline-block px-8 py-3 bg-primary text-white text-lg font-semibold rounded-lg shadow-xl hover:bg-blue-800 transition transform hover:scale-[1.02]">
+        View My Work
+      </a>
+    </div>
   </div>
-  <div class="project">
-    <img src="https://via.placeholder.com/250x150" alt="Project 2">
-    <h3>Project 2</h3>
-  </div>
-  <div class="project">
-    <img src="https://via.placeholder.com/250x150" alt="Project 3">
-    <h3>Project 3</h3>
-  </div>
-</section>
 
-<section id="about">
-  <h2>About Me</h2>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet accumsan arcu.</p>
-</section>
+  <!-- Projects Section -->
+  <section id="projects" class="py-20 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-4xl font-extrabold mb-12 text-gray-900">My Projects</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <!-- Card 1 -->
+        <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden border border-gray-100">
+          <img src="https://source.unsplash.com/800x600/?laptop,code" alt="Project 1" class="w-full h-48 object-cover">
+          <div class="p-6 text-left">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Project 1</h3>
+            <p class="text-gray-600">A dope project where I built something awesome. Replace this description with yours.</p>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden border border-gray-100">
+          <img src="https://source.unsplash.com/800x600/?design,web" alt="Project 2" class="w-full h-48 object-cover">
+          <div class="p-6 text-left">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Project 2</h3>
+            <p class="text-gray-600">Another cool thing I worked on. Swap the image + text with your real project deets.</p>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden border border-gray-100">
+          <img src="https://source.unsplash.com/800x600/?city,night" alt="Project 3" class="w-full h-48 object-cover">
+          <div class="p-6 text-left">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Project 3</h3>
+            <p class="text-gray-600">Yes, this one slaps. Put whatever you want here — case studies, photos, links, whatever.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section id="contact" class="contact">
-  <h2>Contact Me</h2>
-  <p>Email me at <a href="mailto:youremail@example.com">youremail@example.com</a></p>
-</section>
+  <!-- About Section -->
+  <section id="about" class="py-20 md:py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-4xl font-extrabold mb-8 text-gray-900">About Me</h2>
+      <p class="text-lg leading-relaxed text-gray-600">
+        Hey — I'm a digital wanderer, a code‑scribbler, and a dreamer. I like turning caffeine into code and chaos into structure. When I'm not poking at pixels or writing JS, I'm probably dreaming up the next big thing (or just staring at the ceiling thinking of ideas). This is me in a nutshell. Replace with your own bio.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 md:py-24 bg-gray-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-4xl font-extrabold mb-8 text-white">Contact Me</h2>
+      <p class="text-xl mb-4">Want to work together or just say hi? Hit me up at:</p>
+      <a href="mailto:your.email@example.com" class="text-2xl font-bold text-accent hover:text-amber-500 transition underline underline-offset-4">
+        your.email@example.com
+      </a>
+      <!-- Add a secondary CTA -->
+      <div class="mt-10">
+          <a href="#" class="inline-block px-8 py-3 bg-accent text-gray-900 text-lg font-semibold rounded-lg shadow-xl hover:bg-amber-500 transition transform hover:scale-[1.02]">
+            Send a Quick Message
+          </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (Reduced vertical padding) -->
+  <footer class="bg-gray-800 text-center py-4 text-gray-400">
+    &copy; 2025 | Your Name | Built with Tailwind CSS and love (and caffeine)
+  </footer>
 
 </body>
 </html>
