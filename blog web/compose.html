@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Compose • Argent</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+
+<body>
+  <div class="container narrow">
+    <h1>Write Something Beautiful</h1>
+
+    <form id="postForm">
+      <input id="title" placeholder="Post title" required>
+      <input id="tag" placeholder="#tag" required>
+      <textarea id="content" rows="12" placeholder="Your masterpiece…" required></textarea>
+      <button class="primary">Publish</button>
+    </form>
+
+    <p id="postMsg" class="muted"></p>
+  </div>
+
+  <script type="module">
+    import { supabase, requireAuth } from "./supabase.js";
+    await requireAuth();
+
+    document.getElementById("postForm").addEventListener("submit", async (e)=>{
+      e.preventDefault();
+
+      const { data } = await supabase.auth.getUser();
+      const userId = data.user.id;
+
+      const { error } = await supabase.from("posts").insert({
+        title: title.value,
+        tag: tag.value.replace("#",""),
+        content: content.value,
+        author_id: userId
+      });
+
+      const msg = document.getElementById("postMsg");
+      msg.textContent = error ? error.message : "Published!";
+
+      if (!error) {
+        title.value = "";
+        tag.value = "";
+        content.value = "";
+      }
+    });
+  </script>
+</body>
+</html>
