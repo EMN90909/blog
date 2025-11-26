@@ -1,51 +1,110 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <title>Compose • Argent</title>
-  <link rel="stylesheet" href="styles.css"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compose • Argent Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  body { font-family: 'Montserrat', sans-serif; margin:0; background:#fff; color:#333; }
+  header { background: linear-gradient(90deg,#ff7e5f,#feb47b); color:#fff; padding:3rem 2rem; text-align:center; }
+  header h1 { font-size:2.5rem; margin:0 0 0.5rem; }
+  header p { font-size:1.2rem; opacity:0.9; }
+
+  .container { max-width:800px; margin:2rem auto; padding:0 1rem; }
+  .compose-card { background:#fff5f0; padding:2rem; border-radius:15px; box-shadow:0 5px 20px rgba(0,0,0,0.05); }
+  .compose-card h2 { color:#ff4c00; margin-bottom:1rem; text-align:center; }
+
+  .compose-card input, .compose-card textarea {
+    width:100%; padding:1rem; margin:0.8rem 0; border-radius:10px; border:2px solid #ff7e5f; font-size:1rem; transition:0.3s;
+  }
+  .compose-card input:focus, .compose-card textarea:focus { border-color:#feb47b; outline:none; }
+  .primary-btn {
+    display:block; width:100%; background:#ff7e5f; color:#fff; font-weight:700; padding:1rem; border:none; border-radius:30px; font-size:1.1rem; cursor:pointer; transition:0.3s; margin-top:1rem;
+  }
+  .primary-btn:hover { background:#feb47b; transform:scale(1.03); }
+
+  .muted { color:#555; text-align:center; margin-top:1rem; }
+
+  footer { background:#333; color:#fff; text-align:center; padding:2rem; margin-top:3rem; }
+  footer a { color:#ff7e5f; margin:0 0.5rem; text-decoration:none; }
+  footer a:hover { color:#feb47b; }
+</style>
 </head>
-
 <body>
-  <div class="container narrow">
-    <h1>Write Something Beautiful</h1>
 
+<header>
+  <h1>Compose a New Post</h1>
+  <p>Only logged-in users can share their insights. Make it pop!</p>
+</header>
+
+<div class="container">
+  <div class="compose-card">
+    <h2>Write Your Masterpiece</h2>
     <form id="postForm">
-      <input id="title" placeholder="Post title" required>
-      <input id="tag" placeholder="#tag" required>
-      <textarea id="content" rows="12" placeholder="Your masterpiece…" required></textarea>
-      <button class="primary">Publish</button>
+      <input type="text" id="title" placeholder="Post Title" required>
+      <input type="text" id="tag" placeholder="#tag" required>
+      <textarea id="content" rows="10" placeholder="Your content…" required></textarea>
+      <button type="submit" class="primary-btn">Publish</button>
+      <p id="postMsg" class="muted"></p>
     </form>
-
-    <p id="postMsg" class="muted"></p>
   </div>
+</div>
 
-  <script type="module">
-    import { supabase, requireAuth } from "./supabase.js";
-    await requireAuth();
+<footer>
+  <p>© <span id="year"></span> Argent • Made with Wix vibes</p>
+  <div>
+    <a href="index.html">Home</a> | <a href="#">Privacy</a> | <a href="#">Contact</a>
+  </div>
+</footer>
 
-    document.getElementById("postForm").addEventListener("submit", async (e)=>{
-      e.preventDefault();
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-      const { data } = await supabase.auth.getUser();
-      const userId = data.user.id;
+const supabase = createClient(
+  "https://YOUR-PROJECT.supabase.co",
+  "YOUR_PUBLIC_ANON_KEY"
+);
 
-      const { error } = await supabase.from("posts").insert({
-        title: title.value,
-        tag: tag.value.replace("#",""),
-        content: content.value,
-        author_id: userId
-      });
+document.getElementById('year').textContent = new Date().getFullYear();
 
-      const msg = document.getElementById("postMsg");
-      msg.textContent = error ? error.message : "Published!";
+// Require auth before entering
+async function requireAuth() {
+  const { data } = await supabase.auth.getSession();
+  if (!data.session) window.location.href = "auth.html";
+}
+await requireAuth();
 
-      if (!error) {
-        title.value = "";
-        tag.value = "";
-        content.value = "";
-      }
-    });
-  </script>
+const form = document.getElementById('postForm');
+const msg = document.getElementById('postMsg');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const title = document.getElementById('title').value.trim();
+  const tag = document.getElementById('tag').value.replace('#','').trim();
+  const content = document.getElementById('content').value.trim();
+
+  if(!title || !tag || !content) {
+    msg.textContent = "All fields are required!";
+    return;
+  }
+
+  const { data: userData } = await supabase.auth.getUser();
+  const userId = userData.user.id;
+
+  const { error } = await supabase.from('posts').insert({
+    title, tag, content, author_id: userId
+  });
+
+  if(error) {
+    msg.textContent = error.message;
+  } else {
+    msg.textContent = "Post published successfully!";
+    form.reset();
+  }
+});
+</script>
+
 </body>
 </html>
